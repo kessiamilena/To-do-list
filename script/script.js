@@ -9,12 +9,11 @@ form.addEventListener('submit', (event) => {
 
     const inputValues = document.getElementById("todo-input").value;
 
-    let option = comboTasks.options[comboTasks.selectedIndex].text;
+    // let option = comboTasks.options[comboTasks.selectedIndex].text;
 
     let toDo = {
         inputValues,
         statusTask: 'Não Finalizada',
-        option
     }
 
     console.log(toDo);
@@ -92,6 +91,9 @@ function insertDOM(array) {
 
     document.getElementById('todo-input').value = ''
 
+    // ARRUMAR
+    // filterTasks(array) 
+
     //Eventos nos botões
 
     //btnCheck
@@ -99,8 +101,19 @@ function insertDOM(array) {
 
         if(li.className == 'todo-item') {
             li.classList = 'todo-item completed';
+
+            for (let task of Object.keys(array)) {
+                array.statusTask = "Finalizada"
+                // console.log(array.statusTask, array)
+            }
+
         } else {
             li.classList = 'todo-item'
+
+            for (let task of Object.keys(array)) {
+                array.statusTask = "Não Finalizada"
+                // console.log(array.statusTask, array)
+            }
         }
 
         // lista.statusTask = 'Finalizada'
@@ -140,26 +153,26 @@ const removeDOM = (classUl, botao) => {
 // FILTRANDO --> FINALIZADAS / NÃO FINALIZADAS / TODAS
 
 let comboTasks = document.getElementById('todos');
-comboTasks.addEventListener('click', () => { filterTasks() })
+comboTasks.addEventListener('click', () => { filterTasks(lista) })
 
-const filterTasks = () => {
+const filterTasks = (array) => {
 
     let option = comboTasks.options[comboTasks.selectedIndex].text;
 
     if (option === 'Finalizadas') {
         // return 'Todas'
-        let finalizadas = lista.filter((obj) => {
-            return obj.statusTask === 'Finalizada'
+        let finalizadas = array.filter((obj) => {
+            console.log(obj.statusTask === 'Finalizada') 
         })
         // atualizarArray(obj, finalizadas);
     } else if (option === 'Não Finalizadas') {
-        let pendentes = lista.filter((obj) => {
-            return obj.statusTask === 'Pendente'
+        let pendentes = array.filter((obj) => {
+            return obj.statusTask === 'Não Finalizada'
         })
         // atualizarArray(obj, pendentes)
     } else if (option === 'Todas') {
         let todas = lista.filter((obj) => {
-            return obj.statusTask === 'Todas'
+            return obj.statusTask === 'Finalizada' && obj.statusTask === 'Não Finalizada'
         })
         // atualizaArray(obj, todas)
     }
@@ -175,25 +188,8 @@ const filterTasks = () => {
 
 }
 
-
-
-
-
-// select.addEventListener('click', () => { statusTarefa() })
-
-const nomearOpcao = (valorStatus) => {
-
-    // statusTarefa(valorStatus)
-    // console.log(statusTarefa(valorStatus))
-
-    // if (option === 'all') {
-    //     return 'Todas'
-    // } if (option === 'completed') {
-    //     return 'Finalizadas'
-    // } if (option === 'uncompleted') {
-    //     return 'Não Finalizadas'
-    // }
-
+function filterPendentes() {
+    if( lista != null ) {
+        
+    }
 }
-
-// console.log(nomearOpcao(statusTarefa()));
